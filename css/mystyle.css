@@ -22,6 +22,34 @@
 	background-size: cover;
 }
 
+#about_title
+{
+	margin-left: 50px;
+	font-size: 100px;
+	font-family: "Courier New", Courier, monospace;
+}
+
+#about
+{
+	display: flex;
+	align-items: flex-start;
+	margin: 50px;
+	font-size: 30px;
+	font-family: "Courier New", Courier, monospace;
+}
+
+#about > p
+{
+	margin: 10px;
+	min-width: 800px;
+}
+
+#about > img
+{
+	margin: 10px;
+	border-style: double;
+}
+
 #footer
 {
 	background: #404040;
