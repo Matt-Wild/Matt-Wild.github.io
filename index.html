@@ -4,6 +4,50 @@
 		<title>
 			Welcome!
 		</title>
+		<script>
+// Reference window height - 969
+// Reference window width - 1920
+
+function rejig_menu(innerWidth)
+{
+	// Rescaling reference
+	var sizeMultiplier = innerWidth / 1920;
+	
+	// Rescaling header
+	document.getElementById("header").style.height = 200 * sizeMultiplier;
+	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
+	
+	// Rescaling page menu
+	var menu = document.getElementById("menu");
+	menu.style.height = 60 * sizeMultiplier;
+	menu.style.fontSize = 50 * sizeMultiplier;
+	
+	// Rescaling page contents
+	document.getElementById("about_title").style.fontSize = 100 * sizeMultiplier;
+	document.getElementById("about").style.fontSize = 30 * sizeMultiplier;
+	document.getElementById("about_text").style.minWidth = 800 * sizeMultiplier;
+	document.getElementById("about_image").style.width = 900 * sizeMultiplier;
+	
+	// Rescaling footer
+	var footer = document.getElementById("footer");
+	footer.style.height = 30 * sizeMultiplier;
+	footer.style.fontSize = 14 * sizeMultiplier;
+}
+
+function rejig()
+{
+	rejig_menu(window.innerWidth);
+}
+
+function rejig_event(event)
+{
+	rejig();
+}
+
+window.onload = rejig;
+window.addEventListener("resize", rejig_event);
+		
+		</script>
 	</head>
 	<body style="margin: 0px; background: black">
 		<span style="color: lime">
@@ -11,7 +55,7 @@
 		<!-- Heading section -->
 		
 		<div id="header">
-			<img src="images/title_1.png">
+			<img id="header_image" src="images/title_1.png">
 		</div>
 		
 		<!-- End heading section -->
@@ -38,11 +82,13 @@
 				<p>&ltCODER&gt and Epic Gamer</p>
 			</div>
 			<div id="about">
+				<div id="about_text">
 				<p>
 					Hi! I'm Matt,<br><br>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae enim at neque porta pharetra et eu ipsum. Suspendisse eu massa cursus justo maximus lobortis. Sed ac ex dui. Praesent nunc dolor, porttitor eget nisl nec, ornare luctus neque. Pellentesque consectetur ultricies lacus id ullamcorper. Nulla eget ex at ligula dignissim mollis. Donec felis ante, ultricies non finibus id, gravida nec tellus. Fusce fringilla sagittis leo in blandit. Praesent sollicitudin faucibus arcu. Donec vel felis quis sem facilisis efficitur quis ac urna. Phasellus nec convallis purus. Nullam finibus justo et rhoncus commodo. Cras scelerisque libero eget dui venenatis, a aliquam augue sagittis. Fusce purus mi, mollis eget facilisis nec, condimentum eget odio. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam auctor rutrum tincidunt. Donec venenatis magna non leo feugiat, pellentesque tincidunt dolor bibendum. Donec urna erat, dignissim vitae urna non, iaculis porttitor nisi. Vestibulum ut sem blandit, placerat velit malesuada, lobortis velit. Suspendisse potenti. Proin egestas sit amet nulla eu accumsan.
 				</p>
-				<img src="images/about_image.PNG">
+				</div>
+				<img id="about_image" src="images/about_image.PNG">
 			</div>
 		</div>
 		
