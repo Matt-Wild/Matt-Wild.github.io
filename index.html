@@ -5,13 +5,29 @@
 			Welcome!
 		</title>
 		<script>
-// Reference window height - 969
-// Reference window width - 1920
+// Reference window inner height - 969
+// Reference window inner width - 1920
 
-function rejig_menu(innerWidth)
+function rejig_menu(innerWidth, innerHeight)
 {
 	// Rescaling reference
 	var sizeMultiplier = innerWidth / 1920;
+	var screenRatio = innerWidth / innerHeight;
+	var layoutThreshold = 1.15;
+	
+	var aboutImage = document.getElementById("about_image");
+	var aboutImage2 = document.getElementById("about_image_secondary");
+	
+	// Changing page layout for phones
+	if (screenRatio < layoutThreshold)
+	{
+		aboutImage.style.display = "none";
+		aboutImage2.style.display = "block";
+	} else
+	{
+		aboutImage.style.display = "block";
+		aboutImage2.style.display = "none";
+	}
 	
 	// Rescaling header
 	document.getElementById("header").style.height = 200 * sizeMultiplier;
@@ -26,7 +42,7 @@ function rejig_menu(innerWidth)
 	document.getElementById("about_title").style.fontSize = 100 * sizeMultiplier;
 	document.getElementById("about").style.fontSize = 30 * sizeMultiplier;
 	document.getElementById("about_text").style.minWidth = 800 * sizeMultiplier;
-	document.getElementById("about_image").style.width = 900 * sizeMultiplier;
+	aboutImage.style.width = 900 * sizeMultiplier;
 	
 	// Rescaling footer
 	var footer = document.getElementById("footer");
@@ -36,7 +52,7 @@ function rejig_menu(innerWidth)
 
 function rejig()
 {
-	rejig_menu(window.innerWidth);
+	rejig_menu(window.innerWidth, window.innerHeight);
 }
 
 function rejig_event(event)
@@ -44,7 +60,14 @@ function rejig_event(event)
 	rejig();
 }
 
-window.onload = rejig;
+function main()
+{
+	document.getElementById("about_image_secondary").style.display = "none";
+	
+	rejig();
+}
+
+window.onload = main;
 window.addEventListener("resize", rejig_event);
 		
 		</script>
@@ -90,6 +113,7 @@ window.addEventListener("resize", rejig_event);
 				</div>
 				<img id="about_image" src="images/about_image.PNG">
 			</div>
+			<img id="about_image_secondary" class="centred" src="images/about_image.PNG">
 		</div>
 		
 		<!-- End random stuff section -->
