@@ -15,39 +15,63 @@ function rejig_menu(innerWidth, innerHeight)
 	var screenRatio = innerWidth / innerHeight;
 	var layoutThreshold = 1.15;
 	
+	// Getting page elements
+	var header = document.getElementById("header");
+	var menu = document.getElementById("menu");
+	var about = document.getElementById("about");
 	var aboutImage = document.getElementById("about_image");
 	var aboutImage2 = document.getElementById("about_image_secondary");
+	var footer = document.getElementById("footer");
 	
 	// Changing page layout for phones
-	if (screenRatio < layoutThreshold)
+	if (screenRatio < layoutThreshold || sizeMultiplier < 0.4) // Phone / zoom layout
 	{
+		// Rescaling header
+		header.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling menu
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling about text
+		about.style.fontSize = 50 * Math.sqrt(sizeMultiplier);
+		
+		// Rescaling and positioning about image
 		aboutImage.style.display = "none";
 		aboutImage2.style.display = "block";
-	} else
+		
+		// Rescaling footer
+		footer.style.height = 60 * sizeMultiplier;
+		footer.style.fontSize = 28 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	} else // Normal layout
 	{
+		header.style.borderWidth = 2 * sizeMultiplier;
+		
+		menu.style.borderWidth = 4 * sizeMultiplier;
+	
+		about.style.fontSize = 30 * Math.sqrt(sizeMultiplier);
+		
 		aboutImage.style.display = "block";
 		aboutImage2.style.display = "none";
+		
+		footer.style.height = 30 * sizeMultiplier;
+		footer.style.fontSize = 14 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
 	}
 	
 	// Rescaling header
-	document.getElementById("header").style.height = 200 * sizeMultiplier;
+	header.style.height = 200 * sizeMultiplier;
 	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
 	
 	// Rescaling page menu
-	var menu = document.getElementById("menu");
 	menu.style.height = 60 * sizeMultiplier;
 	menu.style.fontSize = 50 * sizeMultiplier;
 	
 	// Rescaling page contents
 	document.getElementById("about_title").style.fontSize = 100 * sizeMultiplier;
-	document.getElementById("about").style.fontSize = 30 * sizeMultiplier;
 	document.getElementById("about_text").style.minWidth = 800 * sizeMultiplier;
 	aboutImage.style.width = 900 * sizeMultiplier;
-	
-	// Rescaling footer
-	var footer = document.getElementById("footer");
-	footer.style.height = 30 * sizeMultiplier;
-	footer.style.fontSize = 14 * sizeMultiplier;
+	aboutImage2.style.width = 900 * sizeMultiplier;
 }
 
 function rejig()
