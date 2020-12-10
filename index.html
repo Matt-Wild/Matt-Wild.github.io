@@ -8,6 +8,14 @@
 // Reference window inner height - 969
 // Reference window inner width - 1920
 
+function update_random_text(event)
+{
+	// Randomising text
+	var phrases = ["Epic Gamer", "Cat Lover", "Dog Lover", "Professional Cheese Sandwich Maker", "Tree Puncher", "Tank Enthusiast"]
+	
+	document.getElementById("random_text").innerHTML = phrases[Math.floor(Math.random() * phrases.length)];
+}
+
 function rejig_menu(innerWidth, innerHeight)
 {
 	// Rescaling reference
@@ -70,8 +78,8 @@ function rejig_menu(innerWidth, innerHeight)
 	// Rescaling page contents
 	document.getElementById("about_title").style.fontSize = 100 * sizeMultiplier;
 	document.getElementById("about_text").style.minWidth = 800 * sizeMultiplier;
-	aboutImage.style.width = 900 * sizeMultiplier;
-	aboutImage2.style.width = 900 * sizeMultiplier;
+	aboutImage.style.width = 900 * Math.sqrt(sizeMultiplier);
+	aboutImage2.style.width = 900 * Math.sqrt(sizeMultiplier);
 }
 
 function rejig()
@@ -87,6 +95,10 @@ function rejig_event(event)
 function main()
 {
 	document.getElementById("about_image_secondary").style.display = "none";
+	
+	// Adding random text functionality
+	var random_text = document.getElementById("random_text");
+	random_text.addEventListener("mouseover", update_random_text);
 	
 	rejig();
 }
@@ -126,7 +138,7 @@ window.addEventListener("resize", rejig_event);
 		<div id="content">
 			
 			<div id="about_title">
-				<p>&ltCODER&gt and Epic Gamer</p>
+				<p>&ltCODER&gt and <span id="random_text">Epic Gamer</span></p>
 			</div>
 			<div id="about">
 				<div id="about_text">

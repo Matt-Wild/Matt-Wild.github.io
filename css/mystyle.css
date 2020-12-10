@@ -32,7 +32,7 @@
 #about
 {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	padding: 2%;
 	font-size: 30px;
 	font-family: "Courier New", Courier, monospace;
@@ -40,20 +40,22 @@
 
 #about_text
 {
-	padding: 10px;
+	padding: 2%;
 	min-width: 800px;
 }
 
 #about > img
 {
-	margin: 10px;
+	margin: 2%;
 	border-style: double;
+	max-width: 44%;
 }
 
 #about_image_secondary
 {
 	margin-bottom: 10px;
 	border-style: double;
+	max-width: 94%;
 }
 
 #footer
