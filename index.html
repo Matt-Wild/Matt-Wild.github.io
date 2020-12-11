@@ -7,13 +7,37 @@
 		<script>
 // Reference window inner height - 969
 // Reference window inner width - 1920
+var currentRandomPhrase = "Epic Gamer";
 
 function update_random_text(event)
 {
 	// Randomising text
 	var phrases = ["Epic Gamer", "Cat Lover", "Dog Lover", "Professional Cheese Sandwich Maker", "Tree Puncher", "Tank Enthusiast"]
 	
-	document.getElementById("random_text").innerHTML = phrases[Math.floor(Math.random() * phrases.length)];
+	randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+	while (randomPhrase == currentRandomPhrase)
+	{
+		randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+	}
+	
+	document.getElementById("random_text").innerHTML = randomPhrase;
+	currentRandomPhrase = randomPhrase;
+}
+
+function image_focus(event)
+{
+	var image1 = document.getElementById("about_image");
+	var image2 = document.getElementById("about_image_secondary");
+	image1.style.opacity = 1;
+	image2.style.opacity = 1;
+}
+
+function image_reset(event)
+{
+	var image1 = document.getElementById("about_image");
+	var image2 = document.getElementById("about_image_secondary");
+	image1.style.opacity = 0.5;
+	image2.style.opacity = 0.5;
 }
 
 function rejig_menu(innerWidth, innerHeight)
@@ -94,11 +118,18 @@ function rejig_event(event)
 
 function main()
 {
-	document.getElementById("about_image_secondary").style.display = "none";
+	// Adding functionality for about images
+	var image1 = document.getElementById("about_image");
+	var image2 = document.getElementById("about_image_secondary");
+	image2.style.display = "none";
+	image1.addEventListener("mouseenter", image_focus);
+	image2.addEventListener("mouseenter", image_focus);
+	image1.addEventListener("mouseleave", image_reset);
+	image2.addEventListener("mouseleave", image_reset);
 	
 	// Adding random text functionality
 	var random_text = document.getElementById("random_text");
-	random_text.addEventListener("mouseover", update_random_text);
+	random_text.addEventListener("mouseenter", update_random_text);
 	
 	rejig();
 }
@@ -133,18 +164,21 @@ window.addEventListener("resize", rejig_event);
 		<!-- End menu section -->
 
 		
-		<!-- Random stuff section -->
+		<!-- Content section -->
 		
 		<div id="content">
 			
 			<div id="about_title">
-				<p>&ltCODER&gt and <span id="random_text">Epic Gamer</span></p>
+				<p>&ltCODER&gt and...<br><span id="random_text">Epic Gamer</span></p>
 			</div>
 			<div id="about">
 				<div id="about_text">
 				<p>
 					Hi! I'm Matt,<br><br>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae enim at neque porta pharetra et eu ipsum. Suspendisse eu massa cursus justo maximus lobortis. Sed ac ex dui. Praesent nunc dolor, porttitor eget nisl nec, ornare luctus neque. Pellentesque consectetur ultricies lacus id ullamcorper. Nulla eget ex at ligula dignissim mollis. Donec felis ante, ultricies non finibus id, gravida nec tellus. Fusce fringilla sagittis leo in blandit. Praesent sollicitudin faucibus arcu. Donec vel felis quis sem facilisis efficitur quis ac urna. Phasellus nec convallis purus. Nullam finibus justo et rhoncus commodo. Cras scelerisque libero eget dui venenatis, a aliquam augue sagittis. Fusce purus mi, mollis eget facilisis nec, condimentum eget odio. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam auctor rutrum tincidunt. Donec venenatis magna non leo feugiat, pellentesque tincidunt dolor bibendum. Donec urna erat, dignissim vitae urna non, iaculis porttitor nisi. Vestibulum ut sem blandit, placerat velit malesuada, lobortis velit. Suspendisse potenti. Proin egestas sit amet nulla eu accumsan.
+					And welcome to my first ever website!<br>
+					I'm currently a Games Software Engineering student at Bournemouth University! I enjoy programming random fun and interesting things in my spare time, often graphical applications. Currently, I program in Python, Java, C++ and from this point onwards; HTML, JavaScript and CSS :D<br>
+					I've been interested in making games for about 8 years now. Going from Scratch projects in after school clubs to teaching in those clubs and enrichment days about graphical applications including games and then to my A Level project and now even my course at University.<br>
+					I've always found programming very satisfying and rewarding and ever since learning my first high-level programming language, Python, I've been trying to apply it to my own games and come up with ideas of how I might design and structure them.
 				</p>
 				</div>
 				<img id="about_image" src="images/about_image.PNG">
@@ -152,7 +186,7 @@ window.addEventListener("resize", rejig_event);
 			<img id="about_image_secondary" class="centred" src="images/about_image.PNG">
 		</div>
 		
-		<!-- End random stuff section -->
+		<!-- End content section -->
 		
 		
 		<!-- Footer section -->
