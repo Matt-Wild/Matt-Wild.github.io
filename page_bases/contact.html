@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/mystyle.css" />
+		<title>
+			Welcome!
+		</title>
+		<script>
+// Reference window inner height - 969
+// Reference window inner width - 1920
+
+function rejig_menu(innerWidth, innerHeight)
+{
+	// Rescaling reference
+	var sizeMultiplier = innerWidth / 1920;
+	var screenRatio = innerWidth / innerHeight;
+	var layoutThreshold = 1.15;
+	
+	// Getting page elements
+	var header = document.getElementById("header");
+	var menu = document.getElementById("menu");
+	var footer = document.getElementById("footer");
+	
+	// Changing page layout for phones
+	if (screenRatio < layoutThreshold || sizeMultiplier < 0.4) // Phone / zoom layout
+	{
+		// Rescaling header
+		header.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling menu
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling footer
+		footer.style.height = 60 * sizeMultiplier;
+		footer.style.fontSize = 28 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	} else // Normal layout
+	{
+		header.style.borderWidth = 2 * sizeMultiplier;
+		
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		footer.style.height = 30 * sizeMultiplier;
+		footer.style.fontSize = 14 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	}
+	
+	// Rescaling header
+	header.style.height = 200 * sizeMultiplier;
+	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
+	
+	// Rescaling page menu
+	menu.style.height = 60 * sizeMultiplier;
+	menu.style.fontSize = 50 * sizeMultiplier;
+}
+
+function rejig()
+{
+	rejig_menu(window.innerWidth, window.innerHeight);
+}
+
+function rejig_event(event)
+{
+	rejig();
+}
+
+function main()
+{
+	rejig();
+}
+
+window.onload = main;
+window.addEventListener("resize", rejig_event);
+		
+		</script>
+	</head>
+	<body style="margin: 0px; background: black">
+		<span style="color: lime">
+		
+		<!-- Heading section -->
+
+		
+		<!-- Content section -->
+		
+		
+		
+		<!-- End content section -->
+		
+		
+		<!-- Footer section -->
+		
+		</span>
+	</body>
+</html>

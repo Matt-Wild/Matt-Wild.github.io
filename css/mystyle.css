@@ -29,6 +29,27 @@
 	font-family: "Courier New", Courier, monospace;
 }
 
+#contact_title
+{
+	margin: 2%;
+	font-size: 80px;
+	font-family: Garamond, serif;
+}
+
+#contact_form_title
+{
+	margin-top: 6%;
+	font-size: 80px;
+	font-family: Garamond, serif;
+}
+
+#contact_form
+{
+	margin-top: 6%;
+	font-size: 40px;
+	font-family: Garamond, serif;
+}
+
 #random_text
 {
 	font-size: 80%;
@@ -65,6 +86,24 @@
 	opacity: 0.5;
 }
 
+#email_text
+{
+	font-size: 50px;
+	margin-left: 1%;
+}
+
+#phone_text
+{
+	font-size: 50px;
+	margin-left: 1%;
+}
+
+#discord_text
+{
+	font-size: 50px;
+	margin-left: 1%;
+}
+
 #footer
 {
 	background: #404040;
@@ -90,16 +129,27 @@ a:hover, a:active {
 	margin-right: auto;
 }
 
+.contact_section
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2%;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
 .margine_right {
 	padding-right: 5px;
 }
 
-.menu_text {
+.centred_text {
 	text-align: center;
 }
 
-.centred_text {
-	text-align: center;
+.form_item {
+	margin-top: 2%;
+	margin-bottom: 10%;
 }
 
 .footer_text {
