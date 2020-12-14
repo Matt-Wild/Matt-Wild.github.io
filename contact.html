@@ -65,6 +65,7 @@ function rejig_menu(innerWidth, innerHeight)
 	var phone_text = document.getElementById("phone_text");
 	var discord_button = document.getElementById("discord_button");
 	var discord_text = document.getElementById("discord_text");
+	var contact_form = document.getElementById("contact_form");
 	var footer = document.getElementById("footer");
 	
 	// Changing page layout for phones
@@ -80,6 +81,12 @@ function rejig_menu(innerWidth, innerHeight)
 		email_text.style.fontSize = 80 * sizeMultiplier;
 		phone_text.style.fontSize = 80 * sizeMultiplier;
 		discord_text.style.fontSize = 80 * sizeMultiplier;
+		if (sizeMultiplier < 0.1)
+		{
+			document.getElementById("input1").size = 20 * sizeMultiplier;
+			document.getElementById("input2").size = 20 * sizeMultiplier;
+			document.getElementById("input3").size = 20 * sizeMultiplier;
+		}
 		
 		// Rescaling footer
 		footer.style.height = 60 * sizeMultiplier;
@@ -110,6 +117,7 @@ function rejig_menu(innerWidth, innerHeight)
 	email_button.style.width = 160 * Math.sqrt(sizeMultiplier);
 	phone_button.style.width = 160 * Math.sqrt(sizeMultiplier);
 	discord_button.style.width = 160 * Math.sqrt(sizeMultiplier);
+	contact_form.style.fontSize = 40 * Math.sqrt(sizeMultiplier);
 	
 	// Rescaling page menu
 	menu.style.height = 60 * sizeMultiplier;
@@ -200,15 +208,15 @@ window.addEventListener("resize", rejig_event);
 			<form>
 				<label>First Name:</label>
 				<br>
-				<input type="text"/>
+				<input id="input1" type="text"/>
 				<br>
 				<label>Surname:</label>
 				<br>
-				<input type="text"/>
+				<input id="input2" type="text"/>
 				<br>
 				<label>Email:</label>
 				<br>
-				<input type="text"/>
+				<input id="input3" type="text"/>
 				<br>
 				<input type="submit" value="Submit Form" class="form_item"/>
 			</form>
