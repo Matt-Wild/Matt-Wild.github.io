@@ -8,6 +8,99 @@
 // Reference window inner height - 969
 // Reference window inner width - 1920
 
+var background_image;
+var enemy_walking;
+var enemy_still;
+
+class Enemy
+{
+	constructor(y_pos)
+	{
+		this.y_pos = y_pos;
+		this.x_pos = -1920 + Math.floor(Math.random() * 1801);
+		this.state = "walking";
+		this.target = Math.floor(Math.random() * 1801);
+		this.animation_stage = 0;
+		this.waiter = 500 + Math.floor(Math.random() * 1000);
+	}
+	
+	update()
+	{
+		// Updating movement and animation behaviour
+		if (this.x_pos < this.target)
+		{
+			this.x_pos++;
+			if (this.x_pos == this.target)
+			{
+				this.state = "still";
+			}
+		} else if (this.waiter > 0)
+		{
+			this.waiter--;
+			if (this.waiter == 0)
+			{
+				this.state = "walking";
+			}
+		} else
+		{
+			this.x_pos++;
+		}
+		
+		this.animation_stage++;
+		if (this.animation_stage > 49)
+		{
+			this.animation_stage = 0;
+		}
+	}
+}
+
+class EnemyManager
+{
+	constructor()
+	{
+		this.enemies = [];
+		this.max_enemies = 20;
+		this.minimum_y = 205;
+		this.y_range = 10;
+		
+		this.create_enemies();
+	}
+	
+	create_enemies()
+	{
+		while (this.enemies.length < this.max_enemies)
+		{
+			this.enemies.push(new Enemy(this.minimum_y + Math.floor(Math.random() * this.y_range)));
+		}
+	}
+	
+	update()
+	{
+		// Updating enemy objects
+		for (var enemy_index in this.enemies)
+		{
+			this.enemies[enemy_index].update();
+		}
+		
+		var index_offset = 0;
+		
+		// Removing escaped enemies
+		for (var enemy_index in this.enemies)
+		{
+			var x_pos = this.enemies[enemy_index - index_offset].x_pos;
+			
+			if (x_pos > 2000)
+			{
+				this.enemies.splice(enemy_index - index_offset, 1);
+				index_offset++;
+			}
+		}
+		
+		// Adding in necessary enemies
+		this.create_enemies();
+	}
+}
+
 function image_focus(event)
 {
 	var projects_image = document.getElementById("projects_image");
@@ -24,7 +117,72 @@ function image_reset(event)
 	projects_image2.style.opacity = 0.5;
 }
 
-function rejig_menu(innerWidth, innerHeight)
+function load()
+{
+	// Creating images and assigning them to global variables
+	background_image = new Image();
+	
+	// Gettings animation frames
+	enemy_walking1 = new Image();
+	enemy_walking2 = new Image();
+	enemy_walking3 = new Image();
+	enemy_walking4 = new Image();
+	enemy_walking5 = new Image();
+	enemy_still1 = new Image();
+	enemy_still2 = new Image();
+	enemy_still3 = new Image();
+	enemy_still4 = new Image();
+	enemy_still5 = new Image();
+	enemy_walking1.src = "images/enemy/walking/1.png";
+	enemy_walking2.src = "images/enemy/walking/2.png";
+	enemy_walking3.src = "images/enemy/walking/3.png";
+	enemy_walking4.src = "images/enemy/walking/4.png";
+	enemy_walking5.src = "images/enemy/walking/5.png";
+	enemy_still1.src = "images/enemy/still/1.png";
+	enemy_still2.src = "images/enemy/still/2.png";
+	enemy_still3.src = "images/enemy/still/3.png";
+	enemy_still4.src = "images/enemy/still/4.png";
+	enemy_still5.src = "images/enemy/still/5.png";
+	
+	// Settings image sources
+	background_image.src = "images/canvas_background.png";
+	enemy_walking = [enemy_walking1, enemy_walking2, enemy_walking3, enemy_walking4, enemy_walking5];
+	enemy_still = [enemy_still1, enemy_still2, enemy_still3, enemy_still4, enemy_still5];
+}
+
+function update_canvas(ctx)
+{
+	// Updating enemies
+	enemy_manager.update();
+	
+	// Draw background
+	ctx.drawImage(background_image, 0, 0);
+	
+	// Draw enemies
+	var enemies = enemy_manager.enemies;
+	for (var enemy_index in enemies)
+	{
+		enemy = enemies[enemy_index];
+		
+		var x_pos = enemy.x_pos;
+		var y_pos = enemy.y_pos;
+		var animation_stage = enemy.animation_stage;
+		var animation_state = enemy.state;
+			
+		if (animation_state == "walking")
+		{
+			ctx.drawImage(enemy_walking[Math.floor(animation_stage / 10)], x_pos, y_pos);
+		} else
+		{
+			ctx.drawImage(enemy_still[Math.floor(animation_stage / 10)], x_pos, y_pos);
+		}
+	}
+	
+	// Repeat
+	window.requestAnimationFrame(function(){update_canvas(ctx);});
+}
+
+function rejig_page(innerWidth, innerHeight)
 {
 	// Rescaling reference
 	var sizeMultiplier = innerWidth / 1920;
@@ -78,13 +236,14 @@ function rejig_menu(innerWidth, innerHeight)
 	// Rescaling header
 	header.style.height = 200 * sizeMultiplier;
 	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
-
+	
 	// Rescaling page menu
 	menu.style.height = 60 * sizeMultiplier;
 	menu.style.fontSize = 50 * sizeMultiplier;
 	
 	// Rescaling page contents
-	document.getElementById("projects_title").style.fontSize = 90 * sizeMultiplier;
+	document.getElementById("projects_title").style.fontSize = 90 * Math.sqrt(sizeMultiplier);
+	document.getElementById("score_text").style.fontSize = 40 * Math.sqrt(sizeMultiplier);
 	document.getElementById("projects_subtitle").style.fontSize = 60 * Math.sqrt(sizeMultiplier);
 	projects_image.style.width = 900 * Math.sqrt(sizeMultiplier);
 	projects_image2.style.width = 900 * Math.sqrt(sizeMultiplier);
@@ -92,7 +251,7 @@ function rejig_menu(innerWidth, innerHeight)
 
 function rejig()
 {
-	rejig_menu(window.innerWidth, window.innerHeight);
+	rejig_page(window.innerWidth, window.innerHeight);
 }
 
 function rejig_event(event)
@@ -102,22 +261,34 @@ function rejig_event(event)
 
 function main()
 {
+	load();
+
 	var projects_image = document.getElementById("projects_image");
 	var projects_image2 = document.getElementById("projects_image_secondary");
+	var canvas = document.getElementById("canvas_game");
 	projects_image.addEventListener("mouseenter", image_focus);
 	projects_image.addEventListener("mouseleave", image_reset);
 	projects_image2.addEventListener("mouseenter", image_focus);
 	projects_image2.addEventListener("mouseleave", image_reset);
 	
+	canvas.height = 260;
+	canvas.width = 1900;
+	
+	// Starting draw cycle
+	var ctx = document.getElementById("canvas_game").getContext('2d');
+	update_canvas(ctx);
+	
 	rejig();
 }
+
+var enemy_manager = new EnemyManager();
 
 window.onload = main;
 window.addEventListener("resize", rejig_event);
 		
 		</script>
 	</head>
-	<body style="margin: 0px; background: black">
+	<body style="margin: 0px; background: black; overflow-x: hidden">
 		<span style="color: lime">
 		
 		<!-- Heading section -->
@@ -148,6 +319,13 @@ window.addEventListener("resize", rejig_event);
 			Projects:
 		</div>
 		
+		<div id="score_text" class="centred_text">
+			Score: 0
+		</div>
+		
+		<canvas id="canvas_game" style="background: red">
+		</canvas>
+		
 		<div id="projects_section">
 			<div id="projects_subtitle" class="centred_text">
 				<u>Nevil</u>
@@ -155,7 +333,7 @@ window.addEventListener("resize", rejig_event);
 			
 			<div id="projects_presentation">
 				<div id="projects_text">
-					Originating from a joke with my friends, 'Nevil' became one of my first games made entirely with high-level programming. At the time of making 'Nevil', I was beginning my Computing A Level project and so decided to make it as my project instead of as a personal thing. Due to my Sixth Form focusing on Python, I decided to use the pygame library to make 'Nevil'. It's a game similar to 'Doodle Jump', the goal is to get the biggest score you can while climbing a randomly generated series of platforms that sometimes had boosts for health, score or jump height on them. In your way are multiple lasers, homing missiles and raining fireballs that damage you. After running out of health your score is submitted and stored if it's a new highscore. There are multiple additional options for 'Nevil' including background music, jump modifiers, new skins and volume settings. Along with a bunch of cheats that would mean I wouldn't need to be good at my own game :D<br><br>'Nevil' introduced me to more complex use of lists and arrays to handle infinitely generating structures. I learnt about the importance of getting rid of unuseful information in order to free up space for new relevant information and allowing for more optimised functions.
+					Originating from a joke with my friends, 'Nevil' became one of my first games made entirely with high-level programming. At the time of making 'Nevil', I was beginning my Computing A Level project and so decided to make it as my project instead of as a personal thing. Due to my Sixth Form focusing on Python, I decided to use the pygame library to make 'Nevil'. It's a game similar to 'Doodle Jump', the goal is to get the biggest score you can while climbing a randomly generated series of platforms that sometimes have boosts for health, score or jump height on them. In your way are multiple lasers, homing missiles and raining fireballs that damage you. After running out of health your score is submitted and stored if it's a new highscore. There are multiple additional options for 'Nevil' including background music, jump modifiers, new skins and volume settings. Along with a bunch of cheats that would mean I wouldn't need to be good at my own game :D<br><br>'Nevil' introduced me to more complex use of lists and arrays to handle infinitely generating structures. I learnt about the importance of getting rid of unuseful information in order to free up space for new relevant information and allowing for more optimised functions.<br><br>P.S. Has some pretty boppin' music made by one of my friends:<br><a href="https://www.youtube.com/channel/UChFKAR8o1uvzTgQqUZkEu1Q" style="color: lime" target="_blank">Music by En1gmA</a>
 				</div>
 				
 				<img id="projects_image" src="images/nevil_image.PNG">

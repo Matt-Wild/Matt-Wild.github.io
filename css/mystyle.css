@@ -57,6 +57,13 @@
 	opacity: 0.5;
 }
 
+#canvas_game
+{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
 #projects_image_secondary
 {
 	margin-bottom: 2%;
@@ -69,6 +76,12 @@
 {
 	margin: 2%;
 	font-size: 100px;
+	font-family: "Courier New", Courier, monospace;
+}
+
+#score_text
+{
+	font-size: 40px;
 	font-family: "Courier New", Courier, monospace;
 }
 
