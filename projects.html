@@ -1,0 +1,182 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/mystyle.css" />
+		<title>
+			Projects!
+		</title>
+		<script>
+// Reference window inner height - 969
+// Reference window inner width - 1920
+
+function image_focus(event)
+{
+	var projects_image = document.getElementById("projects_image");
+	var projects_image2 = document.getElementById("projects_image_secondary");
+	projects_image.style.opacity = 1;
+	projects_image2.style.opacity = 1;
+}
+
+function image_reset(event)
+{
+	var projects_image = document.getElementById("projects_image");
+	var projects_image2 = document.getElementById("projects_image_secondary");
+	projects_image.style.opacity = 0.5;
+	projects_image2.style.opacity = 0.5;
+}
+
+function rejig_menu(innerWidth, innerHeight)
+{
+	// Rescaling reference
+	var sizeMultiplier = innerWidth / 1920;
+	var screenRatio = innerWidth / innerHeight;
+	var layoutThreshold = 1.15;
+	
+	// Getting page elements
+	var header = document.getElementById("header");
+	var menu = document.getElementById("menu");
+	var projects_image = document.getElementById("projects_image");
+	var projects_image2 = document.getElementById("projects_image_secondary");
+	var projects_text = document.getElementById("projects_text");
+	var footer = document.getElementById("footer");
+	
+	// Changing page layout for phones
+	if (screenRatio < layoutThreshold || sizeMultiplier < 0.4) // Phone / zoom layout
+	{
+		// Rescaling header
+		header.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling menu
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling contents
+		projects_text.style.fontSize = 50 * Math.sqrt(sizeMultiplier);
+		
+		// Rescaling and positioning about image
+		projects_image.style.display = "none";
+		projects_image2.style.display = "block";
+		
+		// Rescaling footer
+		footer.style.height = 60 * sizeMultiplier;
+		footer.style.fontSize = 28 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	} else // Normal layout
+	{
+		header.style.borderWidth = 2 * sizeMultiplier;
+		
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		projects_text.style.fontSize = 30 * Math.sqrt(sizeMultiplier);
+		
+		projects_image.style.display = "block";
+		projects_image2.style.display = "none";
+		
+		footer.style.height = 30 * sizeMultiplier;
+		footer.style.fontSize = 14 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	}
+	
+	// Rescaling header
+	header.style.height = 200 * sizeMultiplier;
+	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
+
+	// Rescaling page menu
+	menu.style.height = 60 * sizeMultiplier;
+	menu.style.fontSize = 50 * sizeMultiplier;
+	
+	// Rescaling page contents
+	document.getElementById("projects_title").style.fontSize = 90 * sizeMultiplier;
+	document.getElementById("projects_subtitle").style.fontSize = 60 * Math.sqrt(sizeMultiplier);
+	projects_image.style.width = 900 * Math.sqrt(sizeMultiplier);
+	projects_image2.style.width = 900 * Math.sqrt(sizeMultiplier);
+}
+
+function rejig()
+{
+	rejig_menu(window.innerWidth, window.innerHeight);
+}
+
+function rejig_event(event)
+{
+	rejig();
+}
+
+function main()
+{
+	var projects_image = document.getElementById("projects_image");
+	var projects_image2 = document.getElementById("projects_image_secondary");
+	projects_image.addEventListener("mouseenter", image_focus);
+	projects_image.addEventListener("mouseleave", image_reset);
+	projects_image2.addEventListener("mouseenter", image_focus);
+	projects_image2.addEventListener("mouseleave", image_reset);
+	
+	rejig();
+}
+
+window.onload = main;
+window.addEventListener("resize", rejig_event);
+		
+		</script>
+	</head>
+	<body style="margin: 0px; background: black">
+		<span style="color: lime">
+		
+		<!-- Heading section -->
+		
+		<div id="header">
+			<img id="header_image" src="images/title_1.png">
+		</div>
+		
+		<!-- End heading section -->
+		
+		<!-- Menu section -->
+		
+		<div id="menu">
+			<div class="centred_text">
+				<a href="index.html">
+					HOME
+				</a>
+				 | PROJECTS | CONTACT | LOGIN
+			</div>
+		</div>
+		
+		<!-- End menu section -->
+
+		
+		<!-- Content section -->
+
+		<div id="projects_title" class="centred_text">
+			Projects:
+		</div>
+		
+		<div id="projects_section">
+			<div id="projects_subtitle" class="centred_text">
+				<u>Nevil</u>
+			</div>
+			
+			<div id="projects_presentation">
+				<div id="projects_text">
+					Originating from a joke with my friends, 'Nevil' became one of my first games made entirely with high-level programming. At the time of making 'Nevil', I was beginning my Computing A Level project and so decided to make it as my project instead of as a personal thing. Due to my Sixth Form focusing on Python, I decided to use the pygame library to make 'Nevil'. It's a game similar to 'Doodle Jump', the goal is to get the biggest score you can while climbing a randomly generated series of platforms that sometimes had boosts for health, score or jump height on them. In your way are multiple lasers, homing missiles and raining fireballs that damage you. After running out of health your score is submitted and stored if it's a new highscore. There are multiple additional options for 'Nevil' including background music, jump modifiers, new skins and volume settings. Along with a bunch of cheats that would mean I wouldn't need to be good at my own game :D<br><br>'Nevil' introduced me to more complex use of lists and arrays to handle infinitely generating structures. I learnt about the importance of getting rid of unuseful information in order to free up space for new relevant information and allowing for more optimised functions.
+				</div>
+				
+				<img id="projects_image" src="images/nevil_image.PNG">
+			</div>
+			
+			<img id="projects_image_secondary" class="centred" src="images/nevil_image.PNG">
+		</div>
+		
+		<!-- End content section -->
+		
+		
+		<!-- Footer section -->
+		
+		<div id="footer">
+			<div style="float: left" class="footer_text">
+				Copyright &copy; 2020 Matt Wild
+			</div>
+		</div>
+		
+		<!-- End footer section -->
+		
+		</span>
+	</body>
+</html>

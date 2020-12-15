@@ -22,6 +22,49 @@
 	background-size: cover;
 }
 
+#projects_section
+{
+	border-bottom-style: double;
+	border-top-style: double;
+	margin-top: 2%;
+}
+
+#projects_subtitle
+{
+	font-size: 60px;
+}
+
+#projects_presentation
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#projects_text
+{
+	font-size: 30px;
+	padding-left: 2%;
+	padding-top: 2%;
+	padding-bottom: 1%;
+}
+
+#projects_image
+{
+	margin: 2%;
+	border-style: dashed;
+	max-width: 44%;
+	opacity: 0.5;
+}
+
+#projects_image_secondary
+{
+	margin-bottom: 2%;
+	border-style: dashed;
+	max-width: 94%;
+	opacity: 0.5;
+}
+
 #about_title
 {
 	margin: 2%;
@@ -34,6 +77,13 @@
 	margin: 2%;
 	font-size: 80px;
 	font-family: Garamond, serif;
+}
+
+#projects_title
+{
+	margin: 2%;
+	font-size: 90px;
+	font-family: 'Times New Roman', serif;
 }
 
 #contact_form_title
