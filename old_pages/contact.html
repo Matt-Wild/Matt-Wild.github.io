@@ -1,0 +1,240 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/mystyle.css" />
+		<title>
+			Contact Me!
+		</title>
+		<script>
+// Reference window inner height - 969
+// Reference window inner width - 1920
+
+function toggle_email_text(event)
+{
+	var email_text = document.getElementById("email_text");
+
+	if (email_text.style.display == "none")
+	{
+		email_text.style.display = "block";
+	} else
+	{
+		email_text.style.display = "none";
+	}
+}
+
+function toggle_phone_text(event)
+{
+	var phone_text = document.getElementById("phone_text");
+
+	if (phone_text.style.display == "none")
+	{
+		phone_text.style.display = "block";
+	} else
+	{
+		phone_text.style.display = "none";
+	}
+}
+
+function toggle_discord_text(event)
+{
+	var discord_text = document.getElementById("discord_text");
+
+	if (discord_text.style.display == "none")
+	{
+		discord_text.style.display = "block";
+	} else
+	{
+		discord_text.style.display = "none";
+	}
+}
+
+function rejig_menu(innerWidth, innerHeight)
+{
+	// Rescaling reference
+	var sizeMultiplier = innerWidth / 1920;
+	var screenRatio = innerWidth / innerHeight;
+	var layoutThreshold = 1.15;
+	
+	// Getting page elements
+	var header = document.getElementById("header");
+	var menu = document.getElementById("menu");
+	var contact_title = document.getElementById("contact_title");
+	var contact_form_title = document.getElementById("contact_form_title");
+	var email_button = document.getElementById("email_button");
+	var email_text = document.getElementById("email_text");
+	var phone_button = document.getElementById("phone_button");
+	var phone_text = document.getElementById("phone_text");
+	var discord_button = document.getElementById("discord_button");
+	var discord_text = document.getElementById("discord_text");
+	var contact_form = document.getElementById("contact_form");
+	var footer = document.getElementById("footer");
+	
+	// Changing page layout for phones
+	if (screenRatio < layoutThreshold || sizeMultiplier < 0.4) // Phone / zoom layout
+	{
+		// Rescaling header
+		header.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling menu
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		// Rescaling content
+		email_text.style.fontSize = 80 * sizeMultiplier;
+		phone_text.style.fontSize = 80 * sizeMultiplier;
+		discord_text.style.fontSize = 80 * sizeMultiplier;
+		if (sizeMultiplier < 0.1)
+		{
+			document.getElementById("input1").size = 20 * sizeMultiplier;
+			document.getElementById("input2").size = 20 * sizeMultiplier;
+			document.getElementById("input3").size = 20 * sizeMultiplier;
+		}
+		
+		// Rescaling footer
+		footer.style.height = 60 * sizeMultiplier;
+		footer.style.fontSize = 28 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	} else // Normal layout
+	{
+		header.style.borderWidth = 2 * sizeMultiplier;
+		
+		menu.style.borderWidth = 4 * sizeMultiplier;
+		
+		email_text.style.fontSize = 50 * sizeMultiplier;
+		phone_text.style.fontSize = 50 * sizeMultiplier;
+		discord_text.style.fontSize = 50 * sizeMultiplier;
+		
+		footer.style.height = 30 * sizeMultiplier;
+		footer.style.fontSize = 14 * sizeMultiplier;
+		footer.style.borderWidth = 4 * sizeMultiplier;
+	}
+	
+	// Rescaling header
+	header.style.height = 200 * sizeMultiplier;
+	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
+	
+	// Rescaling contents
+	contact_title.style.fontSize = 80 * Math.sqrt(sizeMultiplier);
+	contact_form_title.style.fontSize = 80 * Math.sqrt(sizeMultiplier);
+	email_button.style.width = 160 * Math.sqrt(sizeMultiplier);
+	phone_button.style.width = 160 * Math.sqrt(sizeMultiplier);
+	discord_button.style.width = 160 * Math.sqrt(sizeMultiplier);
+	contact_form.style.fontSize = 40 * Math.sqrt(sizeMultiplier);
+	
+	// Rescaling page menu
+	menu.style.height = 60 * sizeMultiplier;
+	menu.style.fontSize = 50 * sizeMultiplier;
+}
+
+function rejig()
+{
+	rejig_menu(window.innerWidth, window.innerHeight);
+}
+
+function rejig_event(event)
+{
+	rejig();
+}
+
+function main()
+{
+	document.getElementById("email_text").style.display = "none";
+	document.getElementById("phone_text").style.display = "none";
+	document.getElementById("discord_text").style.display = "none";
+
+	rejig();
+}
+
+window.onload = main;
+window.addEventListener("resize", rejig_event);
+		
+		</script>
+	</head>
+	<body style="margin: 0px; background: black">
+		<span style="color: lime">
+		
+		<!-- Heading section -->
+		
+		<div id="header">
+			<img id="header_image" src="images/title_1.png">
+		</div>
+		
+		<!-- End heading section -->
+		
+		<!-- Menu section -->
+		
+		<div id="menu">
+			<div class="centred_text">
+				<a href="index.html">
+					HOME
+				</a>
+				 | PROJECTS | CONTACT | LOGIN
+			</div>
+		</div>
+		
+		<!-- End menu section -->
+
+		
+		<!-- Content section -->
+		
+		<div id="contact_title" class="centred_text">
+			Contact Me Via:
+		</div>
+		
+		<div id="email_section" class="contact_section">
+			<input type="image" id="email_button" src="images/email.gif" onclick="toggle_email_text()"/>
+			<span id="email_text">
+				- matt.wild888@gmail.com
+			</span>
+		</div>
+		
+		<div id="phone_section" class="contact_section">
+			<input type="image" id="phone_button" src="images/phone.gif" onclick="toggle_phone_text()"/>
+			<span id="phone_text">
+				- 07462 499395
+			</span>
+		</div>
+		
+		<div id="discord_section" class="contact_section">
+			<input type="image" id="discord_button" src="images/discord.gif" onclick="toggle_discord_text()"/>
+			<span id="discord_text">
+				- Matt Wild#6613
+			</span>
+		</div>
+		
+		<div id="contact_form_title" class="centred_text">
+			Contact Form:
+		</div>
+		
+		<div id="contact_form" class="centred_text">
+			<form>
+				<label>First Name:</label>
+				<br>
+				<input id="input1" type="text"/>
+				<br>
+				<label>Surname:</label>
+				<br>
+				<input id="input2" type="text"/>
+				<br>
+				<label>Email:</label>
+				<br>
+				<input id="input3" type="text"/>
+				<br>
+				<input type="submit" value="Submit Form" class="form_item"/>
+			</form>
+		</div>
+		
+		<!-- End content section -->
+		
+		
+		<!-- Footer section -->
+		
+		<div id="footer">
+			<div style="float: left" class="footer_text">
+				Copyright &copy; 2020 Matt Wild
+			</div>
+		</div>
+		
+		<!-- End footer section -->
+		
+		</span>
+	</body>
+</html>
