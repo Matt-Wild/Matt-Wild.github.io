@@ -11,7 +11,41 @@
 var background_image;
 var enemy_walking;
 var enemy_still;
+var score = 0;
 
+// Stores clips, allows for overlapping sounds
+class Sound
+{
+	constructor(amount, src)
+	{
+		this.clips = []
+		this.amount = amount;
+		this.src = src;
+		this.index = 0;
+		
+		for (var i = 0; i < this.amount; i++)
+		{
+			var clip = new Audio();
+			clip.src = this.src;
+			
+			this.clips.push(clip);
+		}
+	}
+	
+	play()
+	{
+		this.index++;
+		
+		if (this.index >= this.clips.length)
+		{
+			this.index = 0;
+		}
+		
+		this.clips[this.index].play();
+	}
+}
+
+// Contains info for an enemy
 class Enemy
 {
 	constructor(y_pos)
@@ -54,6 +88,7 @@ class Enemy
 	}
 }
 
+// Stores enemies and manages how they behave
 class EnemyManager
 {
 	constructor()
@@ -93,11 +128,33 @@ class EnemyManager
 			{
 				this.enemies.splice(enemy_index - index_offset, 1);
 				index_offset++;
+				
+				score--;
+				document.getElementById("score_text").innerHTML = "Score: " + score;
 			}
 		}
 		
 		// Adding in necessary enemies
 		this.create_enemies();
+	}
+	
+	shoot(x, y)
+	{
+		var index_offset = 0;
+		
+		for (var enemy_index in this.enemies)
+		{
+			var enemy = this.enemies[enemy_index - index_offset];
+			var e_x = enemy.x_pos;
+			var e_y = enemy.y_pos;
+			
+			if (x >= e_x && x <= e_x + 25 && y >= e_y && y <= e_y + 25)
+			{
+				score++;
+				document.getElementById("score_text").innerHTML = "Score: " + score;
+				this.enemies.splice(enemy_index - index_offset, 1);
+			}
+		}
 	}
 }
 
@@ -244,6 +301,8 @@ function rejig_page(innerWidth, innerHeight)
 	// Rescaling page contents
 	document.getElementById("projects_title").style.fontSize = 90 * Math.sqrt(sizeMultiplier);
 	document.getElementById("score_text").style.fontSize = 40 * Math.sqrt(sizeMultiplier);
+	document.getElementById("slider_label").style.fontSize = 16 * Math.sqrt(sizeMultiplier);
+	document.getElementById("enemies_slider").style.width = 200 * Math.sqrt(sizeMultiplier);
 	document.getElementById("projects_subtitle").style.fontSize = 60 * Math.sqrt(sizeMultiplier);
 	projects_image.style.width = 900 * Math.sqrt(sizeMultiplier);
 	projects_image2.style.width = 900 * Math.sqrt(sizeMultiplier);
@@ -259,6 +318,20 @@ function rejig_event(event)
 	rejig();
 }
 
+// Manages mouse clicks on the canvas
+function canvas_clicker(event)
+{
+	// Getting canvas click position
+	var rect = document.getElementById("canvas_game").getBoundingClientRect();
+	
+	var aim_x = event.clientX - rect.left;
+	var aim_y = event.clientY - rect.top;
+	
+	gun_shot.play();
+	
+	enemy_manager.shoot(aim_x, aim_y);
+}
+
 function main()
 {
 	load();
@@ -266,10 +339,19 @@ function main()
 	var projects_image = document.getElementById("projects_image");
 	var projects_image2 = document.getElementById("projects_image_secondary");
 	var canvas = document.getElementById("canvas_game");
+	var enemies_slider = document.getElementById("enemies_slider");
 	projects_image.addEventListener("mouseenter", image_focus);
 	projects_image.addEventListener("mouseleave", image_reset);
 	projects_image2.addEventListener("mouseenter", image_focus);
 	projects_image2.addEventListener("mouseleave", image_reset);
+	canvas.addEventListener("click", canvas_clicker);
+	
+	// Setting up slider
+	enemies_slider.oninput = function()
+	{
+		document.getElementById("slider_label").innerHTML = "Enemy Spawnrate: " + this.value;
+		enemy_manager.max_enemies = this.value;
+	}
 	
 	canvas.height = 260;
 	canvas.width = 1900;
@@ -282,6 +364,7 @@ function main()
 }
 
 var enemy_manager = new EnemyManager();
+var gun_shot = new Sound(20, "shot.wav");
 
 window.onload = main;
 window.addEventListener("resize", rejig_event);
@@ -321,6 +404,11 @@ window.addEventListener("resize", rejig_event);
 		
 		<div id="score_text" class="centred_text">
 			Score: 0
+		</div>
+		
+		<div class="centred_text">
+			<label id="slider_label">Enemy Spawnrate: 25</label><br>
+			<input type="range" min="0" max="1000" value="25" id="enemies_slider"/>
 		</div>
 		
 		<canvas id="canvas_game" style="background: red">
