@@ -63,6 +63,8 @@ function rejig_menu(innerWidth, innerHeight)
 		
 		// Rescaling menu
 		menu.style.borderWidth = 4 * sizeMultiplier;
+		menu.style.height = 120 * sizeMultiplier;
+		menu.style.fontSize = 100 * sizeMultiplier;
 		
 		// Rescaling about text
 		about.style.fontSize = 50 * Math.sqrt(sizeMultiplier);
@@ -80,6 +82,8 @@ function rejig_menu(innerWidth, innerHeight)
 		header.style.borderWidth = 2 * sizeMultiplier;
 		
 		menu.style.borderWidth = 4 * sizeMultiplier;
+		menu.style.height = 60 * sizeMultiplier;
+		menu.style.fontSize = 50 * sizeMultiplier;
 	
 		about.style.fontSize = 30 * Math.sqrt(sizeMultiplier);
 		
@@ -94,10 +98,6 @@ function rejig_menu(innerWidth, innerHeight)
 	// Rescaling header
 	header.style.height = 200 * sizeMultiplier;
 	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
-	
-	// Rescaling page menu
-	menu.style.height = 60 * sizeMultiplier;
-	menu.style.fontSize = 50 * sizeMultiplier;
 	
 	// Rescaling page contents
 	document.getElementById("about_title").style.fontSize = 100 * sizeMultiplier;

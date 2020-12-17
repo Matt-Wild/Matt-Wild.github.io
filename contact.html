@@ -76,6 +76,8 @@ function rejig_menu(innerWidth, innerHeight)
 		
 		// Rescaling menu
 		menu.style.borderWidth = 4 * sizeMultiplier;
+		menu.style.height = 120 * sizeMultiplier;
+		menu.style.fontSize = 100 * sizeMultiplier;
 		
 		// Rescaling content
 		email_text.style.fontSize = 80 * sizeMultiplier;
@@ -97,6 +99,8 @@ function rejig_menu(innerWidth, innerHeight)
 		header.style.borderWidth = 2 * sizeMultiplier;
 		
 		menu.style.borderWidth = 4 * sizeMultiplier;
+		menu.style.height = 60 * sizeMultiplier;
+		menu.style.fontSize = 50 * sizeMultiplier;
 		
 		email_text.style.fontSize = 50 * sizeMultiplier;
 		phone_text.style.fontSize = 50 * sizeMultiplier;
@@ -118,10 +122,6 @@ function rejig_menu(innerWidth, innerHeight)
 	phone_button.style.width = 160 * Math.sqrt(sizeMultiplier);
 	discord_button.style.width = 160 * Math.sqrt(sizeMultiplier);
 	contact_form.style.fontSize = 40 * Math.sqrt(sizeMultiplier);
-	
-	// Rescaling page menu
-	menu.style.height = 60 * sizeMultiplier;
-	menu.style.fontSize = 50 * sizeMultiplier;
 }
 
 function rejig()

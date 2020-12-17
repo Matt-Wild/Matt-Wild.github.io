@@ -269,6 +269,8 @@ function rejig_page(innerWidth, innerHeight)
 		
 		// Rescaling menu
 		menu.style.borderWidth = 4 * sizeMultiplier;
+		menu.style.height = 120 * sizeMultiplier;
+		menu.style.fontSize = 100 * sizeMultiplier;
 		
 		// Rescaling contents
 		projects_text.style.fontSize = 50 * Math.sqrt(sizeMultiplier);
@@ -292,6 +294,8 @@ function rejig_page(innerWidth, innerHeight)
 		header.style.borderWidth = 2 * sizeMultiplier;
 		
 		menu.style.borderWidth = 4 * sizeMultiplier;
+		menu.style.height = 60 * sizeMultiplier;
+		menu.style.fontSize = 50 * sizeMultiplier;
 		
 		projects_text.style.fontSize = 30 * Math.sqrt(sizeMultiplier);
 		
@@ -312,10 +316,6 @@ function rejig_page(innerWidth, innerHeight)
 	header.style.height = 200 * sizeMultiplier;
 	document.getElementById("header_image").style.height = 200 * sizeMultiplier;
 	
-	// Rescaling page menu
-	menu.style.height = 60 * sizeMultiplier;
-	menu.style.fontSize = 50 * sizeMultiplier;
-	
 	// Rescaling page contents
 	document.getElementById("projects_title").style.fontSize = 90 * Math.sqrt(sizeMultiplier);
 	document.getElementById("score_text").style.fontSize = 60 * Math.sqrt(sizeMultiplier);
@@ -323,6 +323,7 @@ function rejig_page(innerWidth, innerHeight)
 	document.getElementById("canvas_desc").style.fontSize = 40 * Math.sqrt(sizeMultiplier);
 	document.getElementById("slider_label").style.fontSize = 30 * Math.sqrt(sizeMultiplier);
 	document.getElementById("enemies_slider").style.width = 200 * Math.sqrt(sizeMultiplier);
+	document.getElementById("canvas_game").width = innerWidth;
 	document.getElementById("projects_subtitle").style.fontSize = 60 * Math.sqrt(sizeMultiplier);
 	projects_image.style.width = 900 * Math.sqrt(sizeMultiplier);
 	projects_image2.style.width = 900 * Math.sqrt(sizeMultiplier);
@@ -432,7 +433,7 @@ function main()
 	}
 	
 	canvas.height = 260;
-	canvas.width = 1900;
+	canvas.width = window.innerWidth;
 	
 	// Starting draw cycle
 	var ctx = document.getElementById("canvas_game").getContext('2d');
