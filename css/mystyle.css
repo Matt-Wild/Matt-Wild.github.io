@@ -187,6 +187,10 @@
 	color: white;
 	border-top: 2px solid #B2B2B2;
 	margin-top: 15px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%
 }
 
 a:link, a:visited {
